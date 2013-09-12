@@ -35,7 +35,6 @@ egcd_1(const int a, const int b)
 		return make_tuple(a, 1, 0);
 	}
 
-	auto c = 0;
 	auto p = a;
 	auto q = b;
 	auto u = 1;
@@ -47,7 +46,6 @@ egcd_1(const int a, const int b)
 			break;
 		}
 		tie(u, v) = make_tuple(v - (p / q) * u, u);
-		++c;
 	}
 	return make_tuple(v, (p - v * a) / b, p);
 }
