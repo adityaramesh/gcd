@@ -60,7 +60,7 @@ of the form
 
 We can simplify computations by choosing to track $u_1$ and $u_2$, the
 coefficients associated with $a$, because we will always begin with $u_2 = 1$
-(since we are dividing b into a).  In order to make the first iteration work, we
+(since we are dividing b into a). In order to make the first iteration work, we
 are forced to pick $u_1 = 0$.
 
 ## Convergence
