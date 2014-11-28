@@ -884,7 +884,6 @@ set splitright
 set textwidth=80
 set ttimeoutlen=100
 set visualbell
-set window=53
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
@@ -896,7 +895,7 @@ set shortmess=aoO
 badd +39 include/gcd/gcd.hpp
 badd +39 test/egcd.cpp
 badd +335 reference/y.cpp
-badd +0 notes/extended_gcd.md
+badd +1 notes/extended_gcd.md
 argglobal
 silent! argdel *
 argadd ~/projects/c++/gcd/include/gcd/gcd.hpp
@@ -1147,11 +1146,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 94 - ((25 * winheight(0) + 26) / 52)
+let s:l = 75 - ((47 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-94
+75
 normal! 0
 wincmd w
 2wincmd w
