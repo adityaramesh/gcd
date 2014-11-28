@@ -5,9 +5,36 @@
   ** Contact:	_@adityaramesh.com
 -->
 
-# Extended Euclid's Algorithm
+# Extended Euclidean Algorithm
 
 ## Motivation
+
+Let $a, b \in \integers{1}$. The extended Euclidean algorithm computes
+multipliers $u$ and $v$ such that
+\[
+	au + bv = \gcd(a, b).
+\]
+The algorithm is based on the observation that the $i$th step of the regular
+Euclidean algorithm expresses $r_i$ as an integer linear combination of $a$ and
+$b$. To see why, note that the $i$th step computes $q_i$ and $r_i$ such that
+\[
+	r_{i - 2} = q_i r_{i - 1} + r_i,
+\]
+or
+\[
+	r_i = r_{i - 2} - q_i r_{i - 1}.
+\]
+Using information from previous iterations, we can express $r_{i - 2}$ and $r_{i
+- 1}$ in terms of $a$ and $b$. Thus the RHS of previous equation can be
+expressed as an integer linear combination of $a$ and $b$. The penultimate step
+of the algorithm computes
+\[
+	r_{n - 3} = q_{n - 1} r_{n - 2} + r_{n - 1}.
+\]
+Since $r_{n - 1} = \gcd(a, b)$, we can express $\gcd(a, b)$ as an integer linear
+combination of $a$ and $b$.
+
+## Derivation
 
 As we iterate, we compute
 
@@ -36,7 +63,8 @@ Substituting (2) and (3) into (1), we get
 	r_i = (u_2 a + v_2 b) - (q_i u_1 a + q_i v_1 b).    (4)
 
 We only need to track either $(u_1, u_2)$ or $(v_1, v_2)$, since we can compute
-the other mulitiplier after the algorithm terminates by using the identity
+the other mulitiplier after the algorithm terminates by using Bezout's identity,
+which gives
 
 	u_1 a + v_1 b = gcd(a, b).
 
