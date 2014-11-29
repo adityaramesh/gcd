@@ -895,14 +895,21 @@ set shortmess=aoO
 badd +74 include/gcd/gcd.hpp
 badd +28 test/egcd.cpp
 badd +277 reference/y.cpp
-badd +119 notes/extended_gcd.md
+badd +1 notes/extended_gcd.md
 badd +14 test/gcd_test.cpp
-badd +115 include/gcd/extended_gcd.hpp
-badd +19 test/extended_gcd_test.cpp
+badd +147 include/gcd/extended_gcd.hpp
+badd +13 test/extended_gcd_test.cpp
+badd +35 include/gcd/linear_diophantine.hpp
+badd +27 include/gcd/integer_traits.hpp
+badd +14 test/linear_diophantine_test.cpp
+badd +46 include/gcd/solution_family.hpp
+badd +52 include/gcd/congruence_class.hpp
+badd +26 include/gcd/linear_congruence.hpp
+badd +14 test/linear_congruence_test.cpp
 argglobal
 silent! argdel *
 argadd ~/projects/c++/gcd/include/gcd/gcd.hpp
-edit include/gcd/extended_gcd.hpp
+edit include/gcd/linear_congruence.hpp
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -911,8 +918,8 @@ wincmd w
 set nosplitbelow
 wincmd t
 set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 101 + 102) / 204)
-exe 'vert 2resize ' . ((&columns * 102 + 102) / 204)
+exe 'vert 1resize ' . ((&columns * 102 + 102) / 204)
+exe 'vert 2resize ' . ((&columns * 101 + 102) / 204)
 argglobal
 setlocal keymap=
 setlocal noarabic
@@ -1019,15 +1026,15 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 109 - ((45 * winheight(0) + 26) / 52)
+let s:l = 73 - ((44 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-109
-normal! 029|
+73
+normal! 033|
 wincmd w
 argglobal
-edit test/extended_gcd_test.cpp
+edit test/linear_congruence_test.cpp
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -1133,15 +1140,15 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 18 - ((17 * winheight(0) + 26) / 52)
+let s:l = 16 - ((15 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-18
-normal! 050|
+16
+normal! 010|
 wincmd w
-exe 'vert 1resize ' . ((&columns * 101 + 102) / 204)
-exe 'vert 2resize ' . ((&columns * 102 + 102) / 204)
+exe 'vert 1resize ' . ((&columns * 102 + 102) / 204)
+exe 'vert 2resize ' . ((&columns * 101 + 102) / 204)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

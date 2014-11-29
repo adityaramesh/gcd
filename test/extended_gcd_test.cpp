@@ -11,9 +11,10 @@
 
 int main()
 {
-	auto arr = std::array<int, 3>{6, 12, 16};
-	auto out = std::array<int, 3>{};
-	auto gcd = gcd::extended_gcd(arr, out.begin());
-	cc::println("$1 $2 $3 $4", out[0], out[1], out[2], gcd);
-	cc::println(gcd::extended_gcd(6, 12, 16));
+	cc::println(gcd::extended_gcd(4096u, 260u, 488u, 748u));
+
+	auto in = std::array<int, 4>{4096u, 260u, 488u, 748u};
+	auto out = std::array<int, 4>{};
+	auto gcd = gcd::extended_gcd(in, out.begin());
+	cc::println("$1 $2", out, gcd);
 }
