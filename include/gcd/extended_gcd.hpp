@@ -74,11 +74,9 @@ auto extended_gcd(const InputRange& input_range, OutputIterator coeffs)
 noexcept
 {
 	using std::tie;
+	using detail::extended_euclid_gcd;
 	using integer = typename boost::range_value<InputRange>::type;
 	assert(input_range.size() > 1);
-
-	// TODO: remove
-	using detail::extended_euclid_gcd;
 
 	auto u = integer{0};
 	auto cur_gcd = integer{0};
