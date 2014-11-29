@@ -13,6 +13,6 @@ int main()
 {
 	cc::println(*gcd::solve_linear_congruence(3, 5, 7));
 	cc::println(*gcd::solve_linear_congruences(
-		{1, 1, 1}, {3, 7, 4}, {8, 12, 15})
+		{1, 1, 1}, {3, 7, 4}, {8, 12, 15}
 	);
 }
