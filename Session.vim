@@ -904,12 +904,13 @@ badd +27 include/gcd/integer_traits.hpp
 badd +14 test/linear_diophantine_test.cpp
 badd +46 include/gcd/solution_family.hpp
 badd +52 include/gcd/congruence_class.hpp
-badd +26 include/gcd/linear_congruence.hpp
+badd +1 include/gcd/linear_congruence.hpp
 badd +14 test/linear_congruence_test.cpp
+badd +0 README.md
 argglobal
 silent! argdel *
 argadd ~/projects/c++/gcd/include/gcd/gcd.hpp
-edit include/gcd/linear_congruence.hpp
+edit README.md
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -921,6 +922,22 @@ set winheight=1 winwidth=1
 exe 'vert 1resize ' . ((&columns * 102 + 102) / 204)
 exe 'vert 2resize ' . ((&columns * 101 + 102) / 204)
 argglobal
+let s:cpo_save=&cpo
+set cpo&vim
+vmap <buffer> [] <Plug>(Markdown_MoveToPreviousSiblingHeader)
+vmap <buffer> [[ <Plug>(Markdown_MoveToPreviousHeader)
+nmap <buffer> [] <Plug>(Markdown_MoveToPreviousSiblingHeader)
+nmap <buffer> [[ <Plug>(Markdown_MoveToPreviousHeader)
+vmap <buffer> ]c <Plug>(Markdown_MoveToCurHeader)
+vmap <buffer> ]u <Plug>(Markdown_MoveToParentHeader)
+vmap <buffer> ][ <Plug>(Markdown_MoveToNextSiblingHeader)
+vmap <buffer> ]] <Plug>(Markdown_MoveToNextHeader)
+nmap <buffer> ]c <Plug>(Markdown_MoveToCurHeader)
+nmap <buffer> ]u <Plug>(Markdown_MoveToParentHeader)
+nmap <buffer> ][ <Plug>(Markdown_MoveToNextSiblingHeader)
+nmap <buffer> ]] <Plug>(Markdown_MoveToNextHeader)
+let &cpo=s:cpo_save
+unlet s:cpo_save
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -928,12 +945,12 @@ setlocal nobinary
 setlocal bufhidden=
 setlocal buflisted
 setlocal buftype=
-setlocal cindent
+setlocal nocindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=s0:/*,mb:**,ex:*/,b://
+setlocal comments=s0:<!--,mb:\ \ **,ex:-->
 setlocal commentstring=/*%s*/
 setlocal complete=.,w,b,u,t,i
 set concealcursor=vin
@@ -953,8 +970,8 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal noexpandtab
-if &filetype != 'cpp'
-setlocal filetype=cpp
+if &filetype != 'mkd'
+setlocal filetype=mkd
 endif
 setlocal foldcolumn=0
 setlocal foldenable
@@ -967,7 +984,7 @@ setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
 setlocal formatexpr=
-setlocal formatoptions=2croql
+setlocal formatoptions=tqo2r
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
 setlocal iminsert=0
@@ -990,7 +1007,7 @@ setlocal modifiable
 setlocal nrformats=octal,hex
 setlocal nonumber
 setlocal numberwidth=4
-setlocal omnifunc=ccomplete#Complete
+setlocal omnifunc=
 setlocal path=
 setlocal nopreserveindent
 setlocal nopreviewwindow
@@ -1002,7 +1019,7 @@ setlocal rightleftcmd=search
 setlocal noscrollbind
 setlocal shiftwidth=8
 setlocal noshortname
-setlocal smartindent
+setlocal nosmartindent
 setlocal softtabstop=0
 setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
@@ -1012,8 +1029,8 @@ setlocal statusline=
 setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
-if &syntax != 'cpp'
-setlocal syntax=cpp
+if &syntax != 'mkd'
+setlocal syntax=mkd
 endif
 setlocal tabstop=8
 setlocal tags=
@@ -1026,12 +1043,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 73 - ((44 * winheight(0) + 26) / 52)
+let s:l = 9 - ((8 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-73
-normal! 033|
+9
+normal! 0
 wincmd w
 argglobal
 edit test/linear_congruence_test.cpp
@@ -1140,12 +1157,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 16 - ((15 * winheight(0) + 26) / 52)
+let s:l = 17 - ((16 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-16
-normal! 010|
+17
+normal! 09|
 wincmd w
 exe 'vert 1resize ' . ((&columns * 102 + 102) / 204)
 exe 'vert 2resize ' . ((&columns * 101 + 102) / 204)

@@ -32,10 +32,7 @@ noexcept -> boost::optional<congruence_class<make_signed<T>>>
 	auto gcd = T{};
 	std::tie(r, _, gcd) = extended_gcd(a, mod);
 
-	if (b % gcd != 0) {
-		std::cout << "ADSADSADASDS" << std::endl;
-		return boost::none;
-	}
+	if (b % gcd != 0) return boost::none;
 	auto e = signed_int(b / gcd);
 	return congruence_class<signed_int>{e * r, mod};
 }
