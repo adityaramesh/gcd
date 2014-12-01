@@ -66,6 +66,10 @@ noexcept
 	auto params = s.parameters();
 
 	os << "(x(n), y(n)) = ";
+	if (s.is_degenerate()) {
+		return os << "Z^2";
+	}
+
 	if (get<0>(params) > 0) {
 		os << "(" << get<0>(init) << " + " << get<0>(params) << " * n, ";
 	}

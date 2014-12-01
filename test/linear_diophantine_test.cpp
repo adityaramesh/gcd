@@ -7,7 +7,7 @@
 
 #include <array>
 #include <ccbase/format.hpp>
-#include <gcd/lde.hpp>
+#include <gcd/linear_diophantine.hpp>
 
 int main()
 {
