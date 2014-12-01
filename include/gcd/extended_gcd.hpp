@@ -18,7 +18,9 @@ namespace gcd {
 namespace detail {
 
 /*
-** See `notes/extended_gcd.md` for details.
+** Given integers $a$ and $b$, computes multipliers $u$ and $v$ such that $au +
+** bv = \gcd(a, b)$. The vector $(u, v, \gcd(a, b))$ is returned. See
+** `notes/extended_gcd.md` for details regarding the algorithm.
 **
 ** A note on signedness: the paper `references/multiplier_upper_bound.pdf` shows
 ** that there is an optimal time and optimal space extended GCD algorithm which,
@@ -35,20 +37,23 @@ std::tuple<make_signed<T>, make_signed<T>, T>
 	using std::get;
 	using std::tie;
 	using std::make_tuple;
-	using signed_int = make_signed<T>;
+	using signed_integer = make_signed<T>;
 
 	if (b > a) {
 		auto r = extended_euclid_gcd(b, a);
 		return make_tuple(get<1>(r), get<0>(r), get<2>(r));
 	}
 	if (b == 0) {
-		return make_tuple(a, 1, 0);
+		if (a == 0) {
+			return make_tuple(0, 0, 0);
+		}
+		return make_tuple(1, 0, a);
 	}
 
 	auto p = a;
 	auto q = b;
-	auto u1 = signed_int{1};
-	auto u2 = signed_int{0};
+	auto u1 = signed_integer{1};
+	auto u2 = signed_integer{0};
 
 	for (;;) {
 		tie(p, q) = make_tuple(q, p % q);
@@ -59,10 +64,14 @@ std::tuple<make_signed<T>, make_signed<T>, T>
 	}
 
 	/*
-	** We have to be very careful here in order to preserve signedness. Edit
-	** with caution!
+	** We have to be very careful here in order to preserve signedness of
+	** the second component. Edit with caution!
 	*/
-	return make_tuple(u2, (signed_int(p) - signed_int(u2 * a)) / signed_int(b), p);
+	return make_tuple(
+		u2,
+		(signed_integer(p) - signed_integer(u2 * a)) / signed_integer(b),
+		p
+	);
 }
 
 /*
@@ -98,20 +107,21 @@ auto extended_gcd(const InputRange& input_range, OutputIterator coeffs)
 noexcept
 {
 	using std::tie;
+	using boost::size;
 	using integer = typename boost::range_value<InputRange>::type;
 	using output_type = typename std::iterator_traits<OutputIterator>::value_type;
 
 	static_assert(sizeof(output_type) >= sizeof(integer), "");
 	static_assert(!(std::is_unsigned<integer>::value &&
 		std::is_unsigned<output_type>::value), "");
-	assert(input_range.size() > 1);
+	assert(size(input_range) > 1);
 
 	auto u = integer{0};
 	auto cur_gcd = integer{0};
 	auto inputs = input_range.begin();
 	tie(coeffs[0], coeffs[1], cur_gcd) = extended_gcd(inputs[0], inputs[1]);
 
-	for (auto i = size_t{2}; i != input_range.size(); ++i) {
+	for (auto i = size_t{2}; i != size(input_range); ++i) {
 		std::tie(u, coeffs[i], cur_gcd) = extended_gcd(cur_gcd, inputs[i]);
 		for (auto j = size_t{0}; j != i; ++j) {
 			coeffs[j] *= u;
@@ -129,7 +139,7 @@ template <
 auto extended_gcd(const T& t, const Ts&... ts) noexcept
 {
 	using std::get;
-	using signed_int = make_signed<T>;
+	using signed_integer = make_signed<T>;
 	auto src = std::array<T, sizeof...(Ts) + 1>{t, ts...};
 	auto dst = std::tuple<make_signed<T>, make_signed<Ts>..., T>{};
 
@@ -138,7 +148,9 @@ auto extended_gcd(const T& t, const Ts&... ts) noexcept
 	** clean alternative that does not involve redundant copying, then
 	** please tell me.
 	*/
-	get<sizeof...(Ts) + 1>(dst) = extended_gcd(src, (signed_int*)&get<0>(dst));
+	get<sizeof...(Ts) + 1>(dst) = extended_gcd(
+		src, (signed_integer*)&get<0>(dst)
+	);
 	return dst;
 }
 

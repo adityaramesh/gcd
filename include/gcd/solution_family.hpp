@@ -17,7 +17,10 @@ class solution_family
 	T m_y0;
 	T m_u;
 	T m_v;
+	bool m_is_degen{false};
 public:
+	explicit solution_family() noexcept : m_is_degen{true} {}
+
 	explicit solution_family(
 		const T& x0, const T& y0,
 		const T& u, const T& v
@@ -26,6 +29,10 @@ public:
 	auto operator()(const T& n)
 	const noexcept
 	{
+		assert(
+			!m_is_degen &&
+			"Solution family degenerate: any point is a solution."
+		);
 		return std::make_tuple(
 			m_x0 + n * m_u,
 			m_y0 + n * m_v
@@ -40,6 +47,11 @@ public:
 	auto parameters() const noexcept
 	{
 		return std::make_tuple(m_u, m_v);
+	}
+
+	auto is_degenerate() const noexcept
+	{
+		return m_is_degen;
 	}
 };
 

@@ -24,19 +24,25 @@ auto solve_lde(const T& a, const T& b, const T& c) noexcept ->
 boost::optional<solution_family<make_signed<T>>>
 {
 	using std::get;
-	using signed_int = make_signed<T>;
+	using signed_integer = make_signed<T>;
 
 	auto r = extended_gcd(a, b);
-	if (c % get<2>(r) != 0) {
+	if (get<2>(r) == 0) {
+		if (c == 0) {
+			return solution_family<signed_integer>{};
+		}
+		return boost::none;
+	}
+	else if (c % get<2>(r) != 0) {
 		return boost::none;
 	}
 
 	auto e = c / get<2>(r);
-	return solution_family<signed_int>{
-		signed_int(e) * get<0>(r),
-		signed_int(e) * get<1>(r),
-		signed_int(b / get<2>(r)),
-		-signed_int(a / get<2>(r))
+	return solution_family<signed_integer>{
+		signed_integer(e) * get<0>(r),
+		signed_integer(e) * get<1>(r),
+		signed_integer(b / get<2>(r)),
+		-signed_integer(a / get<2>(r))
 	};
 }
 
